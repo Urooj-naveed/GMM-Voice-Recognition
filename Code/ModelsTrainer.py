@@ -4,7 +4,7 @@ import warnings
 import numpy as np
 from sklearn import mixture
 from FeaturesExtractor import FeaturesExtractor
-
+from MyGMM import MyGMM
 warnings.filterwarnings("ignore")
 
 
@@ -21,14 +21,14 @@ class ModelsTrainer:
         # collect voice features
         female_voice_features = self.collect_features(females)
         male_voice_features   = self.collect_features(males)
-        print(female_voice_features)
-        print(male_voice_features)
+    
         # generate gaussian mixture models
-        females_gmm = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type='diag', n_init = 3)
-        males_gmm   = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type='diag', n_init = 3)
+        females_gmm = MyGMM(n_components=16, max_iter=200)
+        males_gmm = MyGMM(n_components=16, max_iter=200)
         # fit features to models
         females_gmm.fit(female_voice_features)
         males_gmm.fit(male_voice_features)
+ 
         # save models
         self.save_gmm(females_gmm, "females")
         self.save_gmm(males_gmm,   "males")
