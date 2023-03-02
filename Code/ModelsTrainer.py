@@ -23,8 +23,8 @@ class ModelsTrainer:
         male_voice_features   = self.collect_features(males)
     
         # generate gaussian mixture models
-        females_gmm = MyGMM(n_components=16, max_iter=200)
-        males_gmm = MyGMM(n_components=16, max_iter=200)
+        females_gmm = MyGMM()
+        males_gmm = MyGMM()
         # fit features to models
         females_gmm.fit(female_voice_features)
         males_gmm.fit(male_voice_features)

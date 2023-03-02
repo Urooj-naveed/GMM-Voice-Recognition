@@ -5,6 +5,10 @@ from scipy.stats import mode
 from sklearn.metrics import confusion_matrix
 import pandas as pd
 
+np.random.seed(42)
+df = pd.read_excel("data_points.xlsx")
+X = df.iloc[0:10, 0:5].to_numpy()
+
 class GMM:
     def __init__(self, k, max_iter=5):
         self.k = k
@@ -93,9 +97,5 @@ class GMM:
         return np.argmax(weights, axis=1)
 
 # convert numpy array to DataFrame
-df = pd.read_excel("data_points.xlsx")
-X = df.values
-#print(df.columns)
-np.random.seed(42)
 gmm = GMM(k=3, max_iter=10)
 gmm.fit(X)
