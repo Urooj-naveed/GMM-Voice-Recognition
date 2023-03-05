@@ -4,6 +4,12 @@ import warnings
 import numpy as np
 from sklearn import mixture
 from FeaturesExtractor import FeaturesExtractor
+#from Trainer import fit
+#from Trainer2 import fit
+#from Trainer3 import fit
+from Trainer4 import fit
+from MyGMM import MyGMM
+from datetime import datetime
 
 warnings.filterwarnings("ignore")
 
@@ -16,19 +22,54 @@ class ModelsTrainer:
         self.features_extractor    = FeaturesExtractor()
 
     def process(self):
+        # datetime object containing current date and time
         females, males = self.get_file_paths(self.females_training_path,
                                              self.males_training_path)
         # collect voice features
         female_voice_features = self.collect_features(females)
         male_voice_features   = self.collect_features(males)
-        print(female_voice_features)
-        print(male_voice_features)
+        #Option 1--------------------------------------------------------------------------------------
         # generate gaussian mixture models
-        females_gmm = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type='diag', n_init = 3)
-        males_gmm   = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type='diag', n_init = 3)
+        #print('Step 1 females_gmm = MyGMM(n_components=2, tol=1e-4, max_iter=200, covariance_type=diag, n_init=1)')
+        #females_gmm = MyGMM(n_components=2, tol=1e-4, max_iter=200, covariance_type='diag', n_init=1)
+        #print('Step 2 males_gmm = MyGMM(n_components=2, tol=1e-4, max_iter=200, covariance_type=diag, n_init=1)')
+        #males_gmm = MyGMM(n_components=2, tol=1e-4, max_iter=200, covariance_type='diag', n_init=1)
         # fit features to models
-        females_gmm.fit(female_voice_features)
-        males_gmm.fit(male_voice_features)
+        #now = datetime.now()
+        #dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        #print('Step 3 females_gmm.fit(female_voice_features)')
+        #print("Step 3 Start date and time =", dt_string)
+        #females_gmm.fit(female_voice_features)
+        #now = datetime.now()
+        #dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        #print('Step 4 males_gmm.fit(male_voice_features)')
+        #print("Step 4 Start date and time =", dt_string)
+        #males_gmm.fit(male_voice_features)
+        #now = datetime.now()
+        #dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        #print('Step 5 Preparing to save models')
+        #print("Step 5 Start date and time =", dt_string)
+        #----------------------------------------------------------------------------------------------
+        #Option 2--------------------------------------------------------------------------------------
+        print('Step 1 females_gmm = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type=diag, n_init = 3)')
+        females_gmm = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type='diag', n_init = 3)
+        print('Step 2 males_gmm   = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type=diag, n_init = 3)')
+        males_gmm   = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type='diag', n_init = 3)
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        print('Step 3 females_gmm = fit(females_gmm, female_voice_features)')
+        print("Step 3 Start date and time =", dt_string)
+        females_gmm = fit(females_gmm, female_voice_features)
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        print('Step 4 males_gmm = fit(males_gmm, male_voice_features)')
+        print("Step 4 Start date and time =", dt_string)
+        males_gmm = fit(males_gmm, male_voice_features)
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        print('Step 5 Preparing to save models')
+        print("Step 5 Start date and time =", dt_string)
+        #----------------------------------------------------------------------------------------------
         # save models
         self.save_gmm(females_gmm, "females")
         self.save_gmm(males_gmm,   "males")

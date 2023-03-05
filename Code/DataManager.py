@@ -21,14 +21,28 @@ class DataManager:
 
     def make_folder(self, folder_path):
         try:
-            os.mkdir(folder_path)
-            print(folder_path, "was created ...")
+            if not os.path.isdir(folder_path):
+                os.mkdir(folder_path)
+                print(folder_path, "was created ...")
+            else:
+                print("The folder %s already exists" % folder_path)
+            
         except:
             print("Ecxception raised: ", folder_path, "could not be created ...")
 
     def move_files(self, src, dst, group):
         for fname in group:
-            os.rename(src + '/' + fname, dst + '/' + fname)
+            if not os.path.isfile(dst + '/' + fname):
+                os.rename(src + '/' + fname, dst + '/' + fname)
+                print("The file %s was moved " % dst + '/' + fname)
+            else:
+                os.remove(dst + '/' + fname)
+                print("The file %s was removed " % dst + '/' + fname)
+                if not os.path.isfile(dst + '/' + fname):
+                    os.rename(src + '/' + fname, dst + '/' + fname)
+                    print("The file %s was moved " % dst + '/' + fname)
+                else:
+                    print("The file %s already exists " % dst + '/' + fname)
 
     def get_fnames_from_dict(self, dataset_dict, f_or_m):
         training_data, testing_data = [], []
@@ -50,7 +64,10 @@ class DataManager:
 
         # create a folder for the data
         try:
-            os.mkdir(dataset_directory)
+            if not os.path.isdir(dataset_directory):
+                os.mkdir(dataset_directory)
+            else:
+                print("The folder %s already exists" % dataset_directory)
         except:
             pass
 

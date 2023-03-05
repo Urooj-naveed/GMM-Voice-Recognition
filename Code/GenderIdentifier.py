@@ -3,6 +3,9 @@ import pickle
 import warnings
 import numpy as np
 from FeaturesExtractor import FeaturesExtractor
+#from Trainer import score
+#from Trainer3 import score
+from Trainer4 import score
 
 warnings.filterwarnings("ignore")
 
@@ -37,6 +40,12 @@ class GenderIdentifier:
             print("----------------------------------------------------")
 
         accuracy     = ( float(self.total_sample - self.error) / float(self.total_sample) ) * 100
+        accurateelements_msg = "*** number of accurate elements = " + str(float(self.total_sample - self.error)) + " ***"
+        print(accurateelements_msg)
+        wrongelements_msg = "*** number of wrong elements = " + str(float(self.error)) + " ***"
+        print(wrongelements_msg)
+        totalelements_msg = "*** total number of elements = " + str(float(self.total_sample)) + " ***"
+        print(totalelements_msg)
         accuracy_msg = "*** Accuracy = " + str(round(accuracy, 3)) + "% ***"
         print(accuracy_msg)
 
@@ -49,10 +58,12 @@ class GenderIdentifier:
 
     def identify_gender(self, vector):
         # female hypothesis scoring
-        is_female_scores         = np.array(self.females_gmm.score(vector))
+        #is_female_scores         = np.array(self.females_gmm.score(vector))
+        is_female_scores         = np.array(score(vector, self.females_gmm.means_, self.females_gmm.covariances_, self.females_gmm.weights_))
         is_female_log_likelihood = is_female_scores.sum()
         # male hypothesis scoring
-        is_male_scores         = np.array(self.males_gmm.score(vector))
+        #is_male_scores         = np.array(self.males_gmm.score(vector))
+        is_male_scores         = np.array(score(vector, self.males_gmm.means_, self.males_gmm.covariances_, self.males_gmm.weights_))
         is_male_log_likelihood = is_male_scores.sum()
 
         print("%10s %5s %1s" % ("+ FEMALE SCORE",":", str(round(is_female_log_likelihood, 3))))
