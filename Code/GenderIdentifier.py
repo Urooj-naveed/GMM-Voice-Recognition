@@ -24,6 +24,8 @@ class GenderIdentifier:
 
     def process(self):
         files = self.get_file_paths(self.females_training_path, self.males_training_path)
+        accurate_male_list = []
+        accurate_female_list = []
         # read the test directory and get the list of test audio files
         for file in files:
             self.total_sample += 1
@@ -36,8 +38,22 @@ class GenderIdentifier:
             print("%10s %6s %1s" % ("+ EXPECTATION",":", expected_gender))
             print("%10s %3s %1s" %  ("+ IDENTIFICATION", ":", winner))
 
-            if winner[0] != expected_gender: self.error += 1
+            if winner[0] != expected_gender: 
+                self.error += 1
+            else:
+                if expected_gender.lower() == 'm':
+                    accurate_male_list.append(os.path.basename(file))
+                else:
+                    accurate_female_list.append(os.path.basename(file))
             print("----------------------------------------------------")
+
+        for x in accurate_male_list:
+            amo_message = "*** Matched the following male audio  = " + str(x) + " ***"
+            print(amo_message)
+        
+        for y in accurate_female_list:
+            afo_message = "*** Matched the following female audio = " + str(y) + " ***"
+            print(afo_message)
 
         accuracy     = ( float(self.total_sample - self.error) / float(self.total_sample) ) * 100
         accurateelements_msg = "*** number of accurate elements = " + str(float(self.total_sample - self.error)) + " ***"
