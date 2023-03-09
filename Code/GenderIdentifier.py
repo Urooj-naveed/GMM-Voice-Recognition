@@ -5,7 +5,8 @@ import numpy as np
 from FeaturesExtractor import FeaturesExtractor
 #from Trainer import score
 #from Trainer3 import score
-from Trainer4 import score
+#from Trainer4 import score
+from Trainer5 import score
 
 warnings.filterwarnings("ignore")
 

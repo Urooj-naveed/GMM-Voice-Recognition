@@ -7,7 +7,8 @@ from FeaturesExtractor import FeaturesExtractor
 #from Trainer import fit
 #from Trainer2 import fit
 #from Trainer3 import fit
-from Trainer4 import fit
+#from Trainer4 import fit
+from Trainer5 import fit
 from MyGMM import MyGMM
 from datetime import datetime
 
@@ -30,45 +31,51 @@ class ModelsTrainer:
         male_voice_features   = self.collect_features(males)
         #Option 1--------------------------------------------------------------------------------------
         # generate gaussian mixture models
-        #print('Step 1 females_gmm = MyGMM(n_components=2, tol=1e-4, max_iter=200, covariance_type=diag, n_init=1)')
         #females_gmm = MyGMM(n_components=2, tol=1e-4, max_iter=200, covariance_type='diag', n_init=1)
-        #print('Step 2 males_gmm = MyGMM(n_components=2, tol=1e-4, max_iter=200, covariance_type=diag, n_init=1)')
         #males_gmm = MyGMM(n_components=2, tol=1e-4, max_iter=200, covariance_type='diag', n_init=1)
         # fit features to models
-        #now = datetime.now()
-        #dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        #print('Step 3 females_gmm.fit(female_voice_features)')
-        #print("Step 3 Start date and time =", dt_string)
         #females_gmm.fit(female_voice_features)
-        #now = datetime.now()
-        #dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        #print('Step 4 males_gmm.fit(male_voice_features)')
-        #print("Step 4 Start date and time =", dt_string)
         #males_gmm.fit(male_voice_features)
-        #now = datetime.now()
-        #dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        #print('Step 5 Preparing to save models')
-        #print("Step 5 Start date and time =", dt_string)
         #----------------------------------------------------------------------------------------------
         #Option 2--------------------------------------------------------------------------------------
-        print('Step 1 females_gmm = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type=diag, n_init = 3)')
+        #print('Step 1 Initialize the Model females_gmm = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type=diag, n_init = 3)')
+        #females_gmm = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type='diag', n_init = 3)
+        #print('Step 2 Initialize the Model males_gmm = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type=diag, n_init = 3)')
+        #males_gmm   = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type='diag', n_init = 3)
+        #now = datetime.now()
+        #dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        #print("Step 3 females_gmm = fit(females_gmm, female_voice_features) - Start date and time =", dt_string)
+        #females_gmm = fit(females_gmm, female_voice_features)
+        #now = datetime.now()
+        #dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        #print("Step 3 females_gmm = fit(females_gmm, female_voice_features) - End date and time =", dt_string)
+        #now = datetime.now()
+        #dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        #print("Step 4 males_gmm = fit(males_gmm, male_voice_features) - Start date and time =", dt_string)
+        #males_gmm = fit(males_gmm, male_voice_features)
+        #now = datetime.now()
+        #dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        #print("Step 4 males_gmm = fit(males_gmm, male_voice_features) - End date and time =", dt_string)
+        #----------------------------------------------------------------------------------------------
+        #Option 3--------------------------------------------------------------------------------------
+        print('Step 1 Initialize the Model females_gmm = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type=diag, n_init = 3)')
         females_gmm = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type='diag', n_init = 3)
-        print('Step 2 males_gmm   = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type=diag, n_init = 3)')
+        print('Step 2 Initialize the Model males_gmm   = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type=diag, n_init = 3)')
         males_gmm   = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type='diag', n_init = 3)
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print('Step 3 females_gmm = fit(females_gmm, female_voice_features)')
-        print("Step 3 Start date and time =", dt_string)
-        females_gmm = fit(females_gmm, female_voice_features)
+        print("Step 3 females_gmm = fit(females_gmm, female_voice_features) - Start date and time =", dt_string)
+        females_gmm = fit(female_voice_features, 16)
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print('Step 4 males_gmm = fit(males_gmm, male_voice_features)')
-        print("Step 4 Start date and time =", dt_string)
-        males_gmm = fit(males_gmm, male_voice_features)
+        print("Step 3 females_gmm = fit(females_gmm, female_voice_features) - End date and time =", dt_string)
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print('Step 5 Preparing to save models')
-        print("Step 5 Start date and time =", dt_string)
+        print("Step 4 males_gmm = fit(males_gmm, male_voice_features) - Start date and time =", dt_string)
+        males_gmm = fit(male_voice_features, 16)
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        print("Step 4 males_gmm = fit(males_gmm, male_voice_features) - End date and time =", dt_string)
         #----------------------------------------------------------------------------------------------
         # save models
         self.save_gmm(females_gmm, "females")
