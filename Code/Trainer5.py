@@ -199,7 +199,6 @@ def fit(X, n_components, n_init=10, max_iter=100, tol=1e-6):
     for i in range(n_init):
 
         # Initialize the parameters of the GMM
-        print(n_components)
         gmm = GaussianMixture(n_components=n_components)
         gmm = initialize_parameters(X, gmm)
 
