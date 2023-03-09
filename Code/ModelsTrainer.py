@@ -58,24 +58,20 @@ class ModelsTrainer:
         #print("Step 4 males_gmm = fit(males_gmm, male_voice_features) - End date and time =", dt_string)
         #----------------------------------------------------------------------------------------------
         #Option 3--------------------------------------------------------------------------------------
-        print('Step 1 Initialize the Model females_gmm = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type=diag, n_init = 3)')
-        females_gmm = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type='diag', n_init = 3)
-        print('Step 2 Initialize the Model males_gmm   = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type=diag, n_init = 3)')
-        males_gmm   = mixture.GaussianMixture(n_components = 16, max_iter = 200, covariance_type='diag', n_init = 3)
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print("Step 3 females_gmm = fit(females_gmm, female_voice_features) - Start date and time =", dt_string)
+        print("Step 1 females_gmm = fit(females_gmm, female_voice_features) - Start date and time =", dt_string)
         females_gmm = fit(female_voice_features, 16)
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print("Step 3 females_gmm = fit(females_gmm, female_voice_features) - End date and time =", dt_string)
+        print("Step 1 females_gmm = fit(females_gmm, female_voice_features) - End date and time =", dt_string)
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print("Step 4 males_gmm = fit(males_gmm, male_voice_features) - Start date and time =", dt_string)
+        print("Step 2 males_gmm = fit(males_gmm, male_voice_features) - Start date and time =", dt_string)
         males_gmm = fit(male_voice_features, 16)
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print("Step 4 males_gmm = fit(males_gmm, male_voice_features) - End date and time =", dt_string)
+        print("Step 2 males_gmm = fit(males_gmm, male_voice_features) - End date and time =", dt_string)
         #----------------------------------------------------------------------------------------------
         # save models
         self.save_gmm(females_gmm, "females")
