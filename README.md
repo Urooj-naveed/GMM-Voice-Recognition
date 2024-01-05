@@ -4,7 +4,7 @@
 Voice based gender recognition using:
   - **The Free ST American English Corpus dataset (SLR45)**
   - **Mel-frequency cepstrum coefficients (MFCC)**
-  - **Gaussian mixture models (GMM)**
+  - **Gaussian mixture models (GMM) with custom made fit and score functions using probabilistic approach **
 ## Dataset
 The  **The Free ST American English Corpus dataset (SLR45)**  can be found on [SLR45](http://www.openslr.org/45/). It is a free American English corpus by [Surfingtech](www.surfing.ai), containing utterances from 10 speakers (5 females and 5 males). Each speaker has about 350 utterances.
 
@@ -51,3 +51,7 @@ pip install -r requirements.txt
 - The system results in a **95%** accuracy of gender detection.
 - The code can be further optimized using multi-threading, acceleration libs and multi-processing.
 - The accuracy can be further improved using GMM normalization aka a UBM-GMM system.
+
+
+## Akvnowledgement
+This project is built upon the foundation provided by Ayoub Malek ([Link to the original project repository](https://github.com/SuperKogito/Voice-based-gender-recognition)). I would like to express my gratitude for their contributions, which served as inspiration and guidance for my work. Further changes were made according to the requirement of our project for the coursework Probability and Stochastic Processes.
