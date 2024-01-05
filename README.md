@@ -53,5 +53,5 @@ pip install -r requirements.txt
 - The accuracy can be further improved using GMM normalization aka a UBM-GMM system.
 
 
-## Akvnowledgement
+## Aknowledgement
 This project is built upon the foundation provided by Ayoub Malek ([Link to the original project repository](https://github.com/SuperKogito/Voice-based-gender-recognition)). I would like to express my gratitude for their contributions, which served as inspiration and guidance for my work. Further changes were made according to the requirement of our project for the coursework Probability and Stochastic Processes.
